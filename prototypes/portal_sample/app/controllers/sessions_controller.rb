@@ -2,12 +2,18 @@ class SessionsController < ApplicationController
   layout 'login'
 
   def new
+    referer = request.referer
+    if referer.present? && valid_url?(referer)
+      session[:referer] = referer
+    end
   end
 
   def create
     user = login(params[:email], params[:password])
     if user
-      redirect_to root_url, :notice => "Logged in"
+      url = session[:referer] || root_url
+      session[:referer] = nil
+      redirect_to url
     end
   end
 

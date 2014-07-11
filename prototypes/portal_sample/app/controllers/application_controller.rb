@@ -1,3 +1,5 @@
+require 'uri'
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -7,6 +9,10 @@ class ApplicationController < ActionController::Base
     unless current_user
       redirect_to login_path, notice: 'Login required'
     end
+  end
+
+  def valid_url? url
+    !!(url =~ URI::regexp)
   end
 
 private

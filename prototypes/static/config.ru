@@ -14,6 +14,13 @@ require 'sinatra'
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 class App < Sinatra::Base
+
+  set :protection, :except => :frame_options
+
+  get '/iframe' do
+    send_file 'iframe.html'
+  end
+
   get '/' do
     send_file 'index.html'
   end

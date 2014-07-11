@@ -1,0 +1,21 @@
+var HeaderWidget, header;
+
+HeaderWidget = (function() {
+  function HeaderWidget() {}
+
+  HeaderWidget.prototype.renderTemplate = function() {
+    var $div, template;
+    template = '<%= @header_template.html_safe %>';
+    $div = $('.rp_header_wrapper')[0] || $('<div />');
+    $div.html(template);
+    return $('body').prepend($div);
+  };
+
+  return HeaderWidget;
+
+})();
+
+$(document).ready(function(){
+  header = new HeaderWidget();
+  header.renderTemplate();
+});

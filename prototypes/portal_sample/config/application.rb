@@ -34,9 +34,13 @@ module PortalSample
       allow do
         origins '*'
         resource '*',
-            :headers => :any,
-            :methods => [:get, :post, :options]
+          :headers => :any,
+          :methods => [:get, :post, :options]
       end
     end
+
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+    }
   end
 end
