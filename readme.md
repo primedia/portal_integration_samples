@@ -13,7 +13,6 @@ Portal integration provides a navigation header and other functionality that all
 
 This is the first and simplest integration method that will be **required** for all integration types. The Portal header serves three main purposes: displaying a user's context, providing navigation between other portalized applications, and simple javascript authorization<sup>[1](#simple-javascript-authorization)</sup>.
 
-
 To get started you will need to pull in a script, `header_widget.js`, from Portal.
 Include the following snippet in your layout:
 
@@ -35,8 +34,9 @@ or simply
 <span id='tab_highlight_id' data-tab_id='TAB_ID'></span>
 ```
 
->**PORTAL_URL** will need to point to the expected environment: CI, QA, or Production.  
+> **PORTAL_URL** will need to point to the expected environment: CI, QA, or Production.  
 > **TAB_ID** is a Portal generated GUID that will be assigned to an application. This ID is used to "highlight" the current application's tab.
+> **JQuery** 1.7.2 or newer is required
 
 <a name="simple-javascript-authorization"></a>*simple javascript authorization* - Do **not** rely on this authorization to protect sensitive information. This provides a simple javascript redirect back to Portal if a user is not signed in.
 
