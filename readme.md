@@ -35,7 +35,7 @@ or simply
 ```
 
 > **PORTAL_URL** will need to point to the expected environment: CI, QA, or Production.  
-> **TAB_ID** is a Portal generated GUID that will be assigned to an application. This ID is used to "highlight" the current application's tab.
+> **TAB_ID** is a Portal generated GUID that will be assigned to an application. This ID is used to "highlight" the current application's tab.  
 > **JQuery** 1.7.2 or newer is required
 
 [1] <a name="1"></a>*simple javascript authorization* - Do **not** rely on this authorization to protect sensitive information. This provides a simple javascript redirect back to Portal if a user is not signed in.
