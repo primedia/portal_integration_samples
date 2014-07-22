@@ -3,12 +3,13 @@
 Portal integration provides a single sign-on solution along with a shared navigation header and other functionality that allows your application to integrated with either ApartmentGuide.com or Rent.com. There are several levels of integration 
 
 ##Table of Contents
-1. [Portal header](#including-the-portal-header)
+1. [Portal header](#portal-header)
 2. [OAuth2](#oauth2)
 3. [Property selection](#property-selection)
 
 ---
 
+<a name="portal-header"></a>
 ##Including the Portal header
 
 
@@ -32,9 +33,8 @@ To get started you will need to pull in the `header_widget.js` script and includ
 
 
 
-
-##OAuth2 (Coming Soon)
 <a name="oauth2"></a>
+##OAuth2 (Coming Soon)
 
 The OAuth2 integration is for applications that need to know the identity of the user. Applications will need to support a specific route (**TBD**) that will initiate the OAuth2 "dance" with Portal. During this process, Portal will redirect the user to a login page if no valid session is found. The result of a sucessful "dance" is the identity of the user and an access token. The access token will be used to make server-to-server API calls. Applications will need to create/maintain their own session for that user.
 
@@ -49,8 +49,8 @@ This integration differs from the typical OAuth2 implemention in that logouts wi
 - **Route for verifying user identity** 
 - **Handling user logouts and mismatched identify**
 
-##Property selection (Coming Soon)
 <a name="property-selection"></a>
+##Property selection (Coming Soon)
 
 If an application does not want to take advantage of the property selector they can hide it with css and ignore any custom javascript events.
 
