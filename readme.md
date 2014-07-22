@@ -6,9 +6,8 @@ Portal integration provides a single sign-on solution along with a shared naviga
 1. [Portal header](#including-the-portal-header)
 2. [OAuth2](#oauth2)
 3. [Property selection](#property-selection)
-***
 
-
+---
 
 ##Including the Portal header
 
