@@ -10,7 +10,7 @@ Portal integration provides a single sign-on solution along with a shared naviga
 ---
 
 <a name="portal-header"></a>
-##Including the Portal header
+##Including the Portal header (Coming Soon)
 
 
 This is the first and simplest integration method that will be **required** for all integration types. The Portal header serves three main purposes: displaying a user's context, providing navigation between other portalized applications, and simple javascript authorization<sup>[1](#1)</sup>. 
@@ -18,12 +18,21 @@ This is the first and simplest integration method that will be **required** for 
 > [1] <a name="1"></a>*simple javascript authorization* - Do **not** rely on this authorization to protect sensitive information. This provides a simple javascript redirect back to Portal if a user is not signed in.
 
 
-To get started you will need to pull in the `header_widget.js` script and include an element with a `tab_highlight_id` and `data-tab_id`. Include the following snippet in your layout:
+To get started you will need to set a few application specific settings and pull in the `header_widget.js` script:
 
-```html
-<script type="text/javascript" src="https://PORTAL_URL/header_widget.js"></script>
-<span id='tab_highlight_id' data-tab_id='TAB_ID'></span>
-```
+
+````html
+<script type=`text/javascript`>
+  window._phq = window._phq || [];
+  window._phq.push(["tab_id", "TAB_ID""]);
+
+  var script = document.createElement('script');
+  script.src = "https://PORTAL_URL/header_widget.js";
+  script.async = true;
+  var entry = document.getElementsByTagName('script')[0];
+  entry.parentNode.insertBefore(script, entry);
+</script>
+````
 
 ###Requirements  
 ---
@@ -56,11 +65,14 @@ If an application does not want to take advantage of the property selector they 
 
 For applications that want to take advantage of a shared context between applications, they will need to use Portal's API to retrieve and update the current shared property context. The property selector will automatically be included in the header and the properties will be populated using the Portal endpoint `/api/properties`. 
 
-When a user selects a new property from the dropdown, Portal will trigger the javascript event `rentpath.header.propertySelectorChanged` along with some information about the property that can be used for app specific business rules:
+When a user selects a new property from the dropdown, Portal will trigger the javascript event `rentpath.header.propertySelectorChanged` along with some information about the property that can be used for app specific business rules.
 
 ```json
+//replace with example property information
 {}
 ```
+
+If the property in question requires a specific contract but does not have it, Portal provides a standardized template that can be utilized at `/contactsales`. The application will need to display this template instead of taking the user to the selected property. The template provides some basic instructions on how to contact our Sales department to purchase upgrades for a property.
 
 
 ###Requirements  
@@ -68,5 +80,6 @@ When a user selects a new property from the dropdown, Portal will trigger the ja
 - **API Consumer using access token**
   - GET `/api/property?apiver=v1` (Route name TBD)
   - PUT `/api/property?id=:id&apiver=v1` (Route name TBD)
-- **Handling unknown properties and other business requires specific to a property**
+- **Handling unknown properties**
+- **Handling uncontracted properties**
 - **Subscribing to the `rentpath.header.propertySelectorChanged` event and routing accordingly**
