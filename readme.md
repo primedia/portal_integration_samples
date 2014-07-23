@@ -24,12 +24,12 @@ To get started you will need to set a few application specific settings and pull
 ````html
 <script type=`text/javascript`>
   window._phq = window._phq || [];
-  window._phq.push(["tab_id", "TAB_ID""]);
+  window._phq.push(["tab_id", "TAB_ID"]);
 
-  var script = document.createElement('script');
+  var script = document.createElement("script");
   script.src = "https://PORTAL_URL/header_widget.js";
   script.async = true;
-  var entry = document.getElementsByTagName('script')[0];
+  var entry = document.getElementsByTagName("script")[0];
   entry.parentNode.insertBefore(script, entry);
 </script>
 ````
