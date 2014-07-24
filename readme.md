@@ -22,14 +22,14 @@ To get started you will need to set a few application specific settings and pull
 
 
 ````html
-<script type=`text/javascript`>
-  window._phq = window._phq || [];
-  window._phq.push(["tab_id", "TAB_ID""]);
+<script type="text/javascript">
+  window.portalSettings = window.portalSettings || [];
+  window.portalSettings.push(["set", "tab_id", "TAB_ID"]);
 
-  var script = document.createElement('script');
+  var script = document.createElement("script");
   script.src = "https://PORTAL_URL/header_widget.js";
   script.async = true;
-  var entry = document.getElementsByTagName('script')[0];
+  var entry = document.getElementsByTagName("script")[0];
   entry.parentNode.insertBefore(script, entry);
 </script>
 ````
@@ -72,6 +72,7 @@ When a user selects a new property from the dropdown, Portal will trigger the ja
 {}
 ```
 
+###Handling uncontracted properties
 If the property in question requires a specific contract but does not have it, Portal provides a standardized template that can be utilized at `/contactsales`. The application will need to display this template instead of taking the user to the selected property. The template provides some basic instructions on how to contact our Sales department to purchase upgrades for a property.
 
 
