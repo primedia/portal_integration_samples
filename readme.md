@@ -72,6 +72,7 @@ When a user selects a new property from the dropdown, Portal will trigger the ja
 {}
 ```
 
+###Handling uncontracted properties
 If the property in question requires a specific contract but does not have it, Portal provides a standardized template that can be utilized at `/contactsales`. The application will need to display this template instead of taking the user to the selected property. The template provides some basic instructions on how to contact our Sales department to purchase upgrades for a property.
 
 
