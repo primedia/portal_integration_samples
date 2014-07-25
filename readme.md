@@ -65,11 +65,17 @@ If an application does not want to take advantage of the property selector they 
 
 For applications that want to take advantage of a shared context between applications, they will need to use Portal's API to retrieve and update the current shared property context. The property selector will automatically be included in the header and the properties will be populated using the Portal endpoint `/api/properties`. 
 
-When a user selects a new property from the dropdown, Portal will trigger the javascript event `rentpath.header.propertySelectorChanged` along with some information about the property that can be used for app specific business rules.
+When a user selects a new property from the dropdown, Portal will trigger the javascript event `rentpath.header.propertySelectorChanged` along with JSON about the property that can be used for app specific business rules. Contract data is included in this JSON in the form of "has_contract_name". The value of each contract can be respresented with either a 0 (inactive), 1 (active), or null (property not found).
 
 ```json
-//replace with example property information
-{}
+{
+  id: 12345
+  city: "Atlanta"
+  state: "GA"
+  text: "Property Name"
+  has_media_center: 0
+  has_repmon: 1
+}
 ```
 
 ###Handling uncontracted properties
