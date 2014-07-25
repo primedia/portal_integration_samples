@@ -69,11 +69,11 @@ When a user selects a new property from the dropdown, Portal will trigger the ja
 
 ```json
 {
-  id: 12345
-  city: "Atlanta"
-  state: "GA"
-  text: "Property Name"
-  has_media_center: 0
+  id: 12345,
+  city: "Atlanta",
+  state: "GA",
+  text: "Property Name",
+  has_media_center: 0,
   has_repmon: 1
 }
 ```
