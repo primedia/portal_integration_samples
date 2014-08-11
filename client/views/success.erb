@@ -1,0 +1,11 @@
+<p><b>Success! </b></p>
+
+<% if session[:access_token] %>
+  <p>
+    <a href="/logout">Logout</a>
+  </p>
+
+  <p>
+    Access token: <%= session[:access_token] %>
+  </p>
+<% end %>
