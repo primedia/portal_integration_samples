@@ -1,8 +1,8 @@
-## Portal API calls 
+## Portal v1 API calls 
 ---
 These calls are meant to be used server to server because you don't want to expose your token. 
-You can use them client side at your own discretion. 
-If you do use the endpoints clientside (ajax) you can set withcredentials to true with some of the endpoints.
+You can use any GET route client side at your own discretion. 
+If you do use the endpoints client-side (ajax) you can set `withcredentials` to true with some of the endpoints.
 This will allow them to verify identity through cookies/sessions. 
 The API will still always check for a token first, before checking for cookies/sessions. 
 
@@ -11,14 +11,14 @@ API endpoint used to update the current property context for an user.
 
 | Parameter     | Required?     | Type      | Notes|
 |:-------------:|:-------------:|:-----:    |:----:|
-|token                  |&#x2714;               |String     |            |
-|id                         |&#x2714;               |Integer    |            |
-|apiver                 |                               |String     |            |
+|token          |&#x2714;       |String     |                                                               |
+|id             |&#x2714;       |Integer    |                                                               |
+|apiver         |               |String     |By default, the first matching version is used if not specified|
 
 Respone codes
 
     200 - The property context was updated for an user
-    400 - The property context was not updated for an user
+    400 - Missing Token,  Missing ID, The property context was not updated for an user
 
 Example Call
 
@@ -38,10 +38,10 @@ API endpoint used to get current session context
 
 | Parameter     | Required?     | Type      | Notes|
 |:-------------:|:-------------:|:-----:    |:----:|
-|token                  |&#x2714;               |String     |            |
-|apiver                 |                               |String     |            |
+|token          |&#x2714;       |String     |                                                               |
+|apiver         |               |String     |By default, the first matching version is used if not specified|
 
-Note: If this call is made clientsite and token is not found, it will try to verify through cookie/session (must set withcredentials)
+Note: If this call is made client-side and token is not found, it will try to verify through cookie/session (must set withcredentials)
 
 Respone codes
 
@@ -67,10 +67,10 @@ Example response
 ###Get a list of properties
 API endpoint used to get a list of properties (with details) for a user
 
-| Parameter     | Required?     | Type      | Notes|
-|:-------------:|:-------------:|:-----:    |:----:|
-|token                  |&#x2714;               |String     |            |
-|apiver                 |                               |String     |            |
+| Parameter     | Required?     | Type  | Notes|
+|:-------------:|:-------------:|:-----:|:----:|
+|token          |&#x2714;       |String |                                                               |
+|apiver         |               |String |By default, the first matching version is used if not specified|
 
 Note: If this call is made clientsite and token is not found, it will try to verify through cookie/session (must set withcredentials)
 
@@ -119,16 +119,16 @@ API endpoint used to retrieve contract information for a property
 
 | Parameter     | Required?     | Type      | Notes|
 |:-------------:|:-------------:|:-----:    |:----:|
-|token                  |&#x2714;               |String     |            |
-|id                         |&#x2714;               |Integer    |            |
-|apiver                 |                               |String     |            |
+|token          |&#x2714;       |String     |                                                                |
+|id             |&#x2714;       |Integer    |                                                                |
+|apiver         |               |String     ||By default, the first matching version is used if not specified|
 
 Note: If this call is made clientsite and token is not found, it will try to verify through cookie/session (must set withcredentials)
 
 Respone codes
 
     200 - Contract information for a property was returned
-    400 - Bad request
+    400 - Bad request, Missing Token, Missing ID
     460 - Invalid token or expired token
 
 Example Call
@@ -140,7 +140,7 @@ Example Response
 ```json
 {
     "has_repmon": 0,
-    "has_media_center": 0
+    "has_media_center": 1
 }
 ```
 
