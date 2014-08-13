@@ -119,9 +119,9 @@ API endpoint used to retrieve contract information for a property
 
 | Parameter     | Required?     | Type      | Notes|
 |:-------------:|:-------------:|:-----:    |:----:|
-|token          |&#x2714;       |String     |                                                                |
-|id             |&#x2714;       |Integer    |                                                                |
-|apiver         |               |String     ||By default, the first matching version is used if not specified|
+|token          |&#x2714;       |String     |                                                               |
+|id             |&#x2714;       |Integer    |                                                               |
+|apiver         |               |String     |By default, the first matching version is used if not specified|
 
 Note: If this call is made clientsite and token is not found, it will try to verify through cookie/session (must set withcredentials)
 
