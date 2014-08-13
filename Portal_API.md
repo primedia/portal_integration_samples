@@ -51,7 +51,7 @@ Respone codes
     
 Example call 
 
-    curl -v "http://portal.local.apartmentguide.com/api/session?token=fuu7px8y96n60bkav7bct563roglye5&apiver=v1"
+    curl "http://portal.local.apartmentguide.com/api/session?token=fuu7px8y96n60bkav7bct563roglye5&apiver=v1"
 
 Example response
 
@@ -82,7 +82,7 @@ Respone codes
     
 Example call 
 
-    curl -v "http://portal.local.apartmentguide.com/api/properties?token=34o8fjhfdkdfh&apiver=v1"
+    curl "http://portal.local.apartmentguide.com/api/properties?token=34o8fjhfdkdfh&apiver=v1"
 
 Example Response (call from above)
 
