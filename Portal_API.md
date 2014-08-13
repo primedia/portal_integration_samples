@@ -57,7 +57,7 @@ Example response
 
 ```json
 {
-    "email": "IWS_ADMIN@rentpath.com",
+    "email": "example@example.com",
     "id": "302609",
     "property_name": "San Melia",
     "property_id": 1337
