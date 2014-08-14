@@ -91,12 +91,6 @@ Example Response (call from above)
     "total": 10,
     "properties": [
         {
-            "id": "All",
-            "text": "All",
-            "city": "",
-            "state": ""
-        },
-        {
             "id": 78360,
             "text": " Alvista at Laguna Bay",
             "city": "Naples",
