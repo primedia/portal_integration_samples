@@ -63,7 +63,7 @@ An example client implementation can be found under the `client` directory.
 During this "dance", Portal will redirect the user to a login page if no valid session is found.
 The result of a sucessful "dance" is the identity of the user and an access token.
 The access token will be used to make server-to-server [API calls](Portal_API.md).
-Applications will need to create/maintain their own session for that user.
+Applications will need to create/maintain their own session for that user. Also attached to each access token is its time-until-expiration and a refresh token. An old or expired access token can be exchanged for a new one by sending the refresh token to Portal. The OAuth2 gem provides [a convenient method](https://github.com/intridea/oauth2/blob/master/lib/oauth2/access_token.rb#L80) for making this request.
 
 This integration differs from the typical OAuth2 implemention in that logouts will need to be global.
 To do this, Portal supplies an [API](Portal_API.md) that will need to be called on every request to verify the user has a valid Portal session.

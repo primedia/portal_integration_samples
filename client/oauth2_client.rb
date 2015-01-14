@@ -14,7 +14,7 @@ OAUTH2_PARAMS           = {
   site:          OAUTH2_PROVIDER,
   authorize_url: OAUTH2_AUTHORIZE_URL,
   token_url:     OAUTH2_ACCESS_TOKEN_URL }
-
+TIMEOUT_WARNING         = 60
 
 def client
   OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, OAUTH2_PARAMS)
@@ -46,6 +46,21 @@ end
 
 enable :sessions
 
+before do
+  # Check for valid Portal session by calling its API
+  # Logout if invalid
+
+  # Check for valid access token by looking at its expiration
+  token = OAuth2::AccessToken.from_hash(client, session[:access_token_hash])
+  if token.expired?
+    # logout
+  elsif token.expires_in <= TIMEOUT_WARNING
+    # "Would you like to extend your session?" and so on
+    new_token = token.refresh!
+    session[:access_token_hash] = new_token.to_hash
+  end
+end
+
 get '/' do
   erb :home
 end
@@ -65,6 +80,7 @@ end
 get OAUTH2_CALLBACK do
   access_token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
   session[:access_token] = access_token.token
+  session[:access_token_hash] = access_token.to_hash
   redirect to('/success')
 end
 
