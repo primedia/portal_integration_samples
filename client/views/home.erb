@@ -3,5 +3,8 @@
 </p>
 
 <p>
-Access token: <%= session[:access_token] %>
+  Access token: <%= session[:access_token] %>
+</p>
+<p>
+  Your session expires in <%= token.expires_in.to_i %> seconds. <a href="/refresh">Click here</a> if you'd like to extend it.
 </p>
