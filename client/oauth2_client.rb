@@ -20,7 +20,7 @@ def client
 end
 
 def token
-  OAuth2::AccessToken.from_hash(client, session[:access_token_hash] || {})
+  OAuth2::AccessToken.from_hash(client, session[:access_token_hash].dup || {})
 end
 
 def form_uri(url, path)
