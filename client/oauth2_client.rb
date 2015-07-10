@@ -15,9 +15,12 @@ OAUTH2_PARAMS           = {
   authorize_url: OAUTH2_AUTHORIZE_URL,
   token_url:     OAUTH2_ACCESS_TOKEN_URL }
 
-
 def client
   OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, OAUTH2_PARAMS)
+end
+
+def token
+  OAuth2::AccessToken.from_hash(client, session[:access_token_hash].dup || {})
 end
 
 def form_uri(url, path)
@@ -43,8 +46,17 @@ def redirect_uri
   form_uri request.url, OAUTH2_CALLBACK
 end
 
-
 enable :sessions
+
+before do
+  # Check for valid Portal session by calling its API
+  # Logout if invalid
+
+  # Check for valid access token by looking at its expiration
+  if token.expired?
+    redirect to('/logout')
+  end
+end
 
 get '/' do
   erb :home
@@ -65,7 +77,16 @@ end
 get OAUTH2_CALLBACK do
   access_token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
   session[:access_token] = access_token.token
+  session[:access_token_hash] = access_token.to_hash
   redirect to('/success')
+end
+
+get '/refresh' do
+  if token.expires?
+    new_token = token.refresh!
+    session[:access_token_hash] = new_token.to_hash
+  end
+  redirect to('/')
 end
 
 get '/logout' do
