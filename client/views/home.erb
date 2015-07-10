@@ -1,10 +1,13 @@
-<p>
-  <a href="/oauth2authorize">Login</a>
-</p>
+<% if session[:oauth2] %>
+  <p>
+    <b>Success!</b><br />
+    <a href="/logout">Logout</a><br />
+    <a href="/refresh">Refresh</a>
+  </p>
+<% else %>
+  <p>
+    <a href="/oauth2authorize">Login</a>
+  </p>
+<% end %>
 
-<p>
-  Access token: <%= session[:access_token] %>
-</p>
-<p>
-  Your session expires in <%= token.expires_in.to_i %> seconds. <a href="/refresh">Click here</a> if you'd like to extend it.
-</p>
+<%= erb :pretty_json, locals: { hash: session[:oauth2] } %>

@@ -1,12 +1,12 @@
 require 'rubygems'
-require 'debugger'
 require 'logger'
 require 'oauth2'
 require 'sinatra'
+require 'pry'
 
 CLIENT_ID               = '<REPLACE>'
 CLIENT_SECRET           = '<REPLACE>'
-OAUTH2_PROVIDER         = '<REPLACE WITH PORTAL URL>'
+OAUTH2_PROVIDER         = '<REPLACE>'
 OAUTH2_ACCESS_TOKEN_URL = '/oauth/phase_two_token'
 OAUTH2_AUTHORIZE_URL    = '/oauth/phase_one_authorize'
 OAUTH2_CALLBACK         = '/oauth2callback'
@@ -15,12 +15,9 @@ OAUTH2_PARAMS           = {
   authorize_url: OAUTH2_AUTHORIZE_URL,
   token_url:     OAUTH2_ACCESS_TOKEN_URL }
 
+
 def client
   OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, OAUTH2_PARAMS)
-end
-
-def token
-  OAuth2::AccessToken.from_hash(client, session[:access_token_hash].dup || {})
 end
 
 def form_uri(url, path)
@@ -46,17 +43,11 @@ def redirect_uri
   form_uri request.url, OAUTH2_CALLBACK
 end
 
+# always start on :4567 for testing
+set :port, 4567
+
 enable :sessions
-
-before do
-  # Check for valid Portal session by calling its API
-  # Logout if invalid
-
-  # Check for valid access token by looking at its expiration
-  if token.expired?
-    redirect to('/logout')
-  end
-end
+set :session_secret, 'oauth2client'
 
 get '/' do
   erb :home
@@ -76,16 +67,7 @@ end
 #   Exchange the request token for an access token.
 get OAUTH2_CALLBACK do
   access_token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
-  session[:access_token] = access_token.token
-  session[:access_token_hash] = access_token.to_hash
-  redirect to('/success')
-end
-
-get '/refresh' do
-  if token.expires?
-    new_token = token.refresh!
-    session[:access_token_hash] = new_token.to_hash
-  end
+  session[:oauth2] = access_token.to_hash
   redirect to('/')
 end
 
@@ -95,6 +77,8 @@ get '/logout' do
   return
 end
 
-get '/success' do
-  erb :success, locals: { target: logout_uri }
+get '/refresh' do
+  access_token = OAuth2::AccessToken.from_hash(client, session[:oauth2].dup).refresh!
+  session[:oauth2] = access_token.to_hash
+  redirect to('/')
 end
